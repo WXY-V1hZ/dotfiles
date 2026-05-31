@@ -277,7 +277,7 @@
       "enabled": true
     },
     "webFullscreen": {
-      "key": "W",
+      "key": "Shift+W",
       "enabled": true
     },
     "widescreen": {

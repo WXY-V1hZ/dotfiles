@@ -1,0 +1,67 @@
+spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-sh-at-startup "gnome-keyring-daemon --start --components=secrets,ssh,pkcs11"
+workspace "main"
+workspace "ndrop"
+binds {
+    Mod+T hotkey-overlay-title="Open Terminal" {
+        spawn-sh "ndrop kitty";
+    }
+    Mod+E {
+        spawn-sh "ndrop -c org.gnome.Nautilus nautilus";
+    }
+    Mod+Z {
+        spawn-sh "ndrop -c dev.zed.Zed zeditor";
+    }
+    Mod+M {
+        spawn-sh "ndrop -c io.missioncenter.MissionCenter missioncenter";
+    }
+    Alt+F1 {
+        spawn "/home/v1hz/Software/mark-shot/bin/mark-shot";
+    }
+}
+spawn-at-startup "dms-sidebar-ctl" "daemon"
+
+
+// 窗口透明
+window-rule {
+    exclude app-id="kitty"
+    match is-active=false
+    opacity 0.95
+}
+window-rule {
+    exclude app-id="kitty"
+    match is-active=true
+    opacity 0.9
+}
+window-rule {
+    exclude app-id="kitty"
+    clip-to-geometry true
+    background-effect {
+        blur true
+        noise 0.05
+    }
+}
+
+window-rule {
+    match app-id="Nautilus"
+    popups {
+        geometry-corner-radius 15
+        background-effect {
+            blur true
+        }
+    }
+}
+
+// 画中画
+window-rule {
+    match app-id=r#"firefox$"# title="^画中画$"
+    open-floating true
+}
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}

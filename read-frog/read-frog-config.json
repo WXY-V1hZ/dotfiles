@@ -1,0 +1,488 @@
+{
+  "config": {
+    "language": {
+      "sourceCode": "auto",
+      "targetCode": "cmn",
+      "level": "intermediate"
+    },
+    "providersConfig": [
+      {
+        "id": "microsoft-translate-default",
+        "name": "Microsoft Translator",
+        "enabled": true,
+        "provider": "microsoft-translate"
+      },
+      {
+        "id": "google-translate-default",
+        "name": "Google Translate",
+        "enabled": true,
+        "provider": "google-translate"
+      },
+      {
+        "id": "openai-default",
+        "name": "OpenAI",
+        "description": "提供 GPT-4o 等模型",
+        "enabled": false,
+        "provider": "openai",
+        "model": {
+          "model": "gpt-5-mini",
+          "isCustomModel": false,
+          "customModel": null
+        }
+      },
+      {
+        "id": "tensdaq-default",
+        "name": "Tensdaq",
+        "description": "革命性竞价 AI MaaS 平台，价格由市场供需决定，告别高成本固定定价",
+        "enabled": false,
+        "baseURL": "https://tensdaq-api.x-aio.com/v1",
+        "provider": "tensdaq",
+        "model": {
+          "model": "Qwen3-30B-A3B-Instruct-2507",
+          "isCustomModel": true,
+          "customModel": null
+        }
+      },
+      {
+        "id": "ai302-default",
+        "name": "302.AI",
+        "description": "提供最新、全面的模型和按量付费 API",
+        "enabled": false,
+        "baseURL": "https://api.302.ai/v1",
+        "provider": "ai302",
+        "model": {
+          "model": "gpt-4.1-mini",
+          "isCustomModel": true,
+          "customModel": null
+        }
+      },
+      {
+        "id": "google-default",
+        "name": "Gemini",
+        "description": "具有先进推理能力的谷歌旗舰 AI 模型",
+        "enabled": false,
+        "provider": "google",
+        "model": {
+          "model": "gemini-3.1-flash-lite",
+          "isCustomModel": false,
+          "customModel": null
+        }
+      },
+      {
+        "id": "deeplx-default",
+        "name": "DeepLX",
+        "description": "非官方 DeepL API",
+        "enabled": false,
+        "baseURL": "https://api.deeplx.org/{{apiKey}}/translate",
+        "provider": "deeplx"
+      },
+      {
+        "id": "797add41-21d6-4596-89e7-5d9c10d966a7",
+        "name": "DeepSeek",
+        "description": "",
+        "enabled": true,
+        "temperature": 0.3,
+        "providerOptions": {
+          "thinking": {
+            "type": "disabled"
+          }
+        },
+        "provider": "deepseek",
+        "model": {
+          "model": "deepseek-v4-flash",
+          "isCustomModel": false,
+          "customModel": null
+        }
+      }
+    ],
+    "translate": {
+      "providerId": "797add41-21d6-4596-89e7-5d9c10d966a7",
+      "mode": "bilingual",
+      "node": {
+        "enabled": false,
+        "hotkey": "control"
+      },
+      "page": {
+        "range": "main",
+        "autoTranslatePatterns": [],
+        "autoTranslateLanguages": [],
+        "shortcut": "Alt+A",
+        "preload": {
+          "margin": 1000,
+          "threshold": 0
+        },
+        "minCharactersPerNode": 25,
+        "minWordsPerNode": 5,
+        "enableTargetLanguageSkip": true,
+        "skipLanguages": [
+          "cmn",
+          "cmn-Hant"
+        ]
+      },
+      "enableAIContentAware": true,
+      "customPromptsConfig": {
+        "promptId": "b7daa7c7-d255-4600-8cb4-9ec98eb159dc",
+        "patterns": [
+          {
+            "name": "跨文化语义重构与术语保真专家",
+            "id": "b7daa7c7-d255-4600-8cb4-9ec98eb159dc",
+            "systemPrompt": "你不止是翻译器，你是一个语义重构引擎，目标是将源语言内容重构为 {{targetLang}} 母语者在对应圈层中真实使用的表达方式。\n\n**核心原则：保留语义 · 保留圈层感 · 保留技术上下文 · 消除翻译腔**\n\n---\n\n**一、术语保真（最高优先级）**\n\n以下类别默认**不翻译**，除非中文社区已有稳定通用译法。必要时采用“中文解释 + 英文保留”的形式，如“Gas 费”“做市 LP”。\n\n**1. Web3 / AI / 开发者生态术语**\n\nDeFi, staking, mint, bridge, gas, mainnet, testnet, node, validator, rollup, Layer2, MEV, airdrop, farming, LP, whale, degen, alpha, rug, dump, pump, agent, context window, token, inference, fine-tuning, benchmark, latency, RPC, endpoint 等同类术语，一律按此规则处理。\n\n**2. 网络梗 / Meme / 社区黑话**\n\n必须判断是“字面义”还是“社区义”，按社区真实语义重构。\n\n- cooked → 完蛋了 / 崩了（非“被煮熟了”）\n- based → 真敢说 / 有东西（非“基于”）\n- cope → 自我安慰（非“应对”）\n- touch grass → 少上网吧（非“摸草”）\n\n如梗已在中文圈广泛直接使用英文，则保留英文：cringe, meme, OP, buff, nerf, GG, AFK, LOL 等。\n\n**3. 专有名词保护**\n\n以下默认不翻译：人名、项目名、Token 名、GitHub Repo 名、产品名、API 名、库名、框架名、公司名、协议名、命令行、代码、参数、环境变量、路径、URL。除非存在行业级官方中文名称。\n\n---\n\n**二、去翻译腔**\n\n重构为 {{targetLang}} 母语者真实会说的话，重意不重形。\n\n- 禁止：“对于……来说”“在……之下”“进行……”“基于此”“值得注意的是”“让我们深入”“一个重要的里程碑”等翻译腔句式。\n- 优先：直接表达、短句、动词驱动、高信息密度。\n\n---\n\n**三、语境匹配**\n\n根据内容来源匹配语体：\n\n| 场景 | 风格要求 |\n|------|----------|\n| 论坛 / Twitter / Telegram / Reddit | 口语化、情绪化、可吐槽、圈内黑话，禁止翻成新闻联播 |\n| 新闻 / 资讯 | 信息密度高、去营销化、不添油加醋、不擅自总结态度 |\n| 技术内容 | 精准、不意译关键概念、不擅自简化技术逻辑、保留工程上下文 |\n\n---\n\n**四、生产环境兼容**\n\n必须原样保留：HTML 标签、Markdown、URL、占位符、换行、代码块、特殊符号、JSON 结构、YAML 结构。不破坏任何格式。\n\n---\n\n**五、冲突决策优先级**\n\n当“中文通顺”“字面对应”“社区真实语义”“技术准确性”发生冲突时，按以下顺序决策：\n\n1. 社区真实语义\n2. 技术准确性\n3. 中文可读性\n4. 字面对应\n\n---\n\n**六、思维流程（内部执行）**\n\n1. 判断内容所属生态（AI / Web3 / Reddit / Twitter / 技术 / 新闻 / meme）\n2. 识别术语、黑话、专有名词、meme\n3. 决定处理方式：保留英文 / 中英混合 / 意译 / 本地化重构\n4. 进行中文表达优化\n\n---\n\n**七、输出规则**\n\n- 只输出最终结果。\n- 不添加解释、不写“译文如下”、不加注释、不擅自总结、不润色成立场文章。\n\n---\n\n**上下文**\n\n标题：{{webTitle}}\n\n摘要：{{webSummary}}",
+            "prompt": "将以下内容翻译为 {{targetLanguage}}，要求直接输出最终结果，不添加解释、不写“译文如下”、不加注释、不擅自总结、不润色成立场文章：{{input}}"
+          }
+        ]
+      },
+      "requestQueueConfig": {
+        "capacity": 60,
+        "rate": 8
+      },
+      "batchQueueConfig": {
+        "maxCharactersPerBatch": 1000,
+        "maxItemsPerBatch": 4
+      },
+      "translationNodeStyle": {
+        "preset": "weakened",
+        "isCustom": false,
+        "customCSS": null
+      }
+    },
+    "languageDetection": {
+      "mode": "llm",
+      "providerId": "797add41-21d6-4596-89e7-5d9c10d966a7"
+    },
+    "tts": {
+      "defaultVoice": "en-US-DavisNeural",
+      "languageVoices": {
+        "eng": "en-US-DavisNeural",
+        "cmn": "zh-CN-YunxiNeural",
+        "cmn-Hant": "zh-TW-YunJheNeural",
+        "yue": "zh-CN-YunxiNeural",
+        "spa": "es-ES-AlvaroNeural",
+        "rus": "ru-RU-DmitryNeural",
+        "arb": "ar-SA-HamedNeural",
+        "ben": "bn-BD-NabanitaNeural",
+        "hin": "hi-IN-MadhurNeural",
+        "por": "pt-BR-AntonioNeural",
+        "ind": "id-ID-ArdiNeural",
+        "jpn": "ja-JP-KeitaNeural",
+        "fra": "fr-FR-HenriNeural",
+        "deu": "de-DE-ConradNeural",
+        "jav": "jv-ID-DimasNeural",
+        "kor": "ko-KR-InJoonNeural",
+        "tel": "te-IN-MohanNeural",
+        "vie": "vi-VN-NamMinhNeural",
+        "mar": "mr-IN-ManoharNeural",
+        "ita": "it-IT-DiegoNeural",
+        "tam": "ta-IN-ValluvarNeural",
+        "tur": "tr-TR-AhmetNeural",
+        "urd": "ur-PK-AsadNeural",
+        "guj": "gu-IN-NiranjanNeural",
+        "pol": "pl-PL-MarekNeural",
+        "ukr": "uk-UA-OstapNeural",
+        "kan": "kn-IN-GaganNeural",
+        "mai": "en-US-DavisNeural",
+        "mal": "ml-IN-MidhunNeural",
+        "pes": "fa-IR-FaridNeural",
+        "mya": "my-MM-ThihaNeural",
+        "swh": "sw-KE-RafikiNeural",
+        "sun": "su-ID-JajangNeural",
+        "ron": "ro-RO-EmilNeural",
+        "pan": "pa-IN-OjasNeural",
+        "bho": "en-US-DavisNeural",
+        "amh": "am-ET-AmehaNeural",
+        "hau": "ha-NG-AbubakarNeural",
+        "fuv": "ff-Latn-SN-SambaNeural",
+        "bos": "bs-BA-GoranNeural",
+        "hrv": "hr-HR-SreckoNeural",
+        "nld": "nl-NL-MaartenNeural",
+        "srp": "sr-RS-NicholasNeural",
+        "tha": "th-TH-NiwatNeural",
+        "ckb": "en-US-DavisNeural",
+        "yor": "yo-NG-AbeoNeural",
+        "uzn": "uz-UZ-SardorNeural",
+        "zlm": "ms-MY-OsmanNeural",
+        "ibo": "ig-NG-EzinneNeural",
+        "npi": "ne-NP-SagarNeural",
+        "ceb": "en-US-DavisNeural",
+        "skr": "en-US-DavisNeural",
+        "tgl": "fil-PH-AngeloNeural",
+        "hun": "hu-HU-TamasNeural",
+        "azj": "az-AZ-BabekNeural",
+        "sin": "si-LK-SameeraNeural",
+        "koi": "en-US-DavisNeural",
+        "ell": "el-GR-NestorasNeural",
+        "ces": "cs-CZ-AntoninNeural",
+        "mag": "en-US-DavisNeural",
+        "run": "en-US-DavisNeural",
+        "bel": "be-BY-YauheniNeural",
+        "plt": "en-US-DavisNeural",
+        "qug": "en-US-DavisNeural",
+        "mad": "en-US-DavisNeural",
+        "nya": "en-US-GuyNeural",
+        "zyb": "en-US-DavisNeural",
+        "pbu": "en-US-DavisNeural",
+        "kin": "rw-RW-JeanNeural",
+        "zul": "zu-ZA-ThembaNeural",
+        "bul": "bg-BG-BorislavNeural",
+        "swe": "sv-SE-MattiasNeural",
+        "lin": "ln-CD-BaudouinNeural",
+        "som": "so-SO-MuuseNeural",
+        "hms": "en-US-DavisNeural",
+        "hnj": "en-US-DavisNeural",
+        "ilo": "en-US-DavisNeural",
+        "kaz": "kk-KZ-DauletNeural",
+        "heb": "he-IL-AvriNeural",
+        "nob": "nb-NO-FinnNeural",
+        "nno": "nn-NO-FinnNeural",
+        "afr": "af-ZA-AdriNeural",
+        "sqi": "sq-AL-IlirNeural",
+        "asm": "as-IN-BiswajitNeural",
+        "eus": "eu-ES-AnderNeural",
+        "bre": "fr-FR-HenriNeural",
+        "cat": "ca-ES-EnricNeural",
+        "cos": "fr-FR-HenriNeural",
+        "cym": "cy-GB-AledNeural",
+        "dan": "da-DK-JeppeNeural",
+        "div": "si-LK-SameeraNeural",
+        "epo": "en-US-GuyNeural",
+        "ekk": "et-EE-KertNeural",
+        "fao": "fo-FO-PoulNeural",
+        "fij": "en-US-GuyNeural",
+        "fin": "fi-FI-HarriNeural",
+        "fry": "nl-NL-MaartenNeural",
+        "gla": "en-GB-RyanNeural",
+        "gle": "ga-IE-ColmNeural",
+        "glg": "gl-ES-RoiNeural",
+        "grn": "es-ES-AlvaroNeural",
+        "hat": "fr-FR-HenriNeural",
+        "haw": "en-US-DavisNeural",
+        "hye": "hy-AM-HaykNeural",
+        "ido": "en-US-GuyNeural",
+        "ina": "en-US-GuyNeural",
+        "isl": "is-IS-GunnarNeural",
+        "kat": "ka-GE-GiorgiNeural",
+        "khm": "km-KH-PisethNeural",
+        "kir": "kk-KZ-DauletNeural",
+        "lao": "lo-LA-ChanthavongNeural",
+        "lat": "it-IT-DiegoNeural",
+        "lvs": "lv-LV-NilsNeural",
+        "lit": "lt-LT-LeonasNeural",
+        "ltz": "fr-FR-HenriNeural",
+        "mkd": "mk-MK-AleksandarNeural",
+        "mlt": "mt-MT-JosephNeural",
+        "mon": "mn-MN-BataaNeural",
+        "mri": "en-NZ-MitchellNeural",
+        "nso": "en-US-DavisNeural",
+        "oci": "fr-FR-HenriNeural",
+        "ori": "or-IN-DineshNeural",
+        "orm": "en-US-GuyNeural",
+        "prs": "en-US-DavisNeural",
+        "san": "hi-IN-MadhurNeural",
+        "slk": "sk-SK-LukasNeural",
+        "slv": "sl-SI-RokNeural",
+        "smo": "en-US-GuyNeural",
+        "sna": "en-US-GuyNeural",
+        "snd": "sd-PK-SalmanNeural",
+        "sot": "en-US-GuyNeural",
+        "tah": "fr-FR-HenriNeural",
+        "tat": "tt-RU-AidarNeural",
+        "tgk": "tg-TJ-SharifNeural",
+        "tir": "am-ET-AmehaNeural",
+        "ton": "en-US-GuyNeural",
+        "tsn": "en-US-GuyNeural",
+        "tuk": "tk-TM-AmanNeural",
+        "uig": "ug-CN-KashgarNeural",
+        "vol": "en-US-GuyNeural",
+        "wol": "en-US-GuyNeural",
+        "xho": "xh-ZA-ThembaNeural",
+        "ydd": "he-IL-AvriNeural",
+        "aka": "en-US-GuyNeural",
+        "bam": "fr-FR-HenriNeural",
+        "bis": "en-US-GuyNeural",
+        "bod": "zh-CN-YunxiNeural",
+        "che": "ru-RU-DmitryNeural",
+        "chv": "ru-RU-DmitryNeural",
+        "dzo": "zh-CN-YunxiNeural",
+        "ewe": "en-US-GuyNeural",
+        "kab": "en-US-DavisNeural",
+        "lug": "en-US-GuyNeural",
+        "oss": "ru-RU-DmitryNeural",
+        "ssw": "en-US-GuyNeural",
+        "ven": "en-US-GuyNeural",
+        "war": "en-US-DavisNeural",
+        "nde": "en-US-GuyNeural",
+        "nbl": "en-US-GuyNeural",
+        "pam": "en-US-DavisNeural",
+        "hil": "en-US-DavisNeural",
+        "bcl": "en-US-DavisNeural",
+        "min": "en-US-DavisNeural",
+        "ace": "en-US-DavisNeural",
+        "bug": "en-US-DavisNeural",
+        "ban": "en-US-DavisNeural",
+        "bjn": "en-US-DavisNeural",
+        "mak": "en-US-DavisNeural",
+        "sas": "en-US-DavisNeural",
+        "tet": "en-US-DavisNeural",
+        "cha": "en-US-GuyNeural",
+        "niu": "en-US-DavisNeural",
+        "tvl": "en-US-DavisNeural",
+        "gil": "en-US-DavisNeural",
+        "mah": "en-US-GuyNeural",
+        "pau": "en-US-DavisNeural",
+        "wls": "en-US-DavisNeural",
+        "rar": "en-US-DavisNeural",
+        "hif": "en-US-DavisNeural"
+      },
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0
+    },
+    "floatingButton": {
+      "enabled": false,
+      "position": 0.66,
+      "side": "right",
+      "disabledFloatingButtonPatterns": [],
+      "clickAction": "translate",
+      "locked": false
+    },
+    "selectionToolbar": {
+      "enabled": true,
+      "disabledSelectionToolbarPatterns": [],
+      "opacity": 100,
+      "features": {
+        "translate": {
+          "enabled": true,
+          "providerId": "797add41-21d6-4596-89e7-5d9c10d966a7"
+        },
+        "speak": {
+          "enabled": true
+        }
+      },
+      "customActions": [
+        {
+          "id": "default-dictionary",
+          "name": "词典",
+          "enabled": true,
+          "icon": "tabler:book-2",
+          "providerId": "797add41-21d6-4596-89e7-5d9c10d966a7",
+          "systemPrompt": "你是一个面向语言学习者的词典助手。\n\n## 目标\n根据给定的词语及其周围段落，生成简洁的词典条目，匹配所需的输出对象。\n\n## 规则\n1. 聚焦于最匹配所提供段落内容的含义。\n2. 将词条规范化为其基本/标准形式。\n3. 保持释义精确且适合学习者。\n4. 保持段落内容与提示词一致，不要改写。\n5. 音标必须使用该语言的标准标注（如英语用 IPA，中文用拼音，日语用罗马字）。\n6. 词性使用英文（noun, verb, adjective 等）。\n7. 难度必须是 CEFR 等级（A1, A2, B1, B2, C1, 或 C2）。\n8. 如果某个字段未知，返回空字符串而非猜测。\n9. 除非需要保留原文形式，所有文本字段均使用 {{targetLanguage}} 作答。\n\n## 示例\n\n### 示例 1\n输入：Selection=\"blossoms\", Paragraphs=\"The ephemeral beauty of cherry blossoms reminds us to cherish each moment.\", 目标语言=中文\n\n输出：\n- 词条：blossom\n- 音标：/ˈblɒs.əm/\n- 词性：noun\n- 段落内容：The ephemeral beauty of cherry blossoms reminds us to cherish each moment.\n- 释义：花；花朵（尤指果树的花）\n- 段落翻译：樱花短暂的美丽提醒我们珍惜每一刻。\n- 难度：B2\n\n### 示例 2\n输入：Selection=\"感動\", Paragraphs=\"この映画はつまらないと思ったけど、最後は感動した。\", 目标语言=英语\n\n输出：\n- 词条：感動\n- 音标：kandou\n- 词性：noun\n- 段落内容：この映画はつまらないと思ったけど、最後は感動した。\n- 释义：Being deeply moved; emotional touch\n- 段落翻译：I thought this movie was boring, but the ending was moving.\n- 难度：B1",
+          "prompt": "## 输入\n选中文本：{{selection}}\n段落内容：{{paragraphs}}\n目标语言：{{targetLanguage}}",
+          "outputSchema": [
+            {
+              "id": "default-dictionary-term",
+              "name": "词条",
+              "type": "string",
+              "description": "选中词条的基本/标准词元形式。",
+              "speaking": true
+            },
+            {
+              "id": "default-dictionary-phonetic",
+              "name": "音标",
+              "type": "string",
+              "description": "该语言的标准音标（如英语用 IPA，中文用拼音，日语用罗马字）。",
+              "speaking": false
+            },
+            {
+              "id": "default-dictionary-part-of-speech",
+              "name": "词性",
+              "type": "string",
+              "description": "语法类别（如 noun、verb、adjective）。",
+              "speaking": false
+            },
+            {
+              "id": "default-dictionary-definition",
+              "name": "释义",
+              "type": "string",
+              "description": "针对语境含义的一条简洁释义。",
+              "speaking": false
+            },
+            {
+              "id": "default-dictionary-context",
+              "name": "段落内容",
+              "type": "string",
+              "description": "使用上方提示词中的原始段落内容，不要改写。",
+              "speaking": true
+            },
+            {
+              "id": "default-dictionary-context-translation",
+              "name": "段落翻译",
+              "type": "string",
+              "description": "段落内容的翻译。",
+              "speaking": false
+            },
+            {
+              "id": "default-dictionary-difficulty",
+              "name": "难度",
+              "type": "string",
+              "description": "预估 CEFR 难度等级：A1、A2、B1、B2、C1 或 C2。",
+              "speaking": false
+            }
+          ]
+        }
+      ]
+    },
+    "sideContent": {
+      "width": 420
+    },
+    "betaExperience": {
+      "enabled": false
+    },
+    "contextMenu": {
+      "enabled": false
+    },
+    "inputTranslation": {
+      "enabled": false,
+      "providerId": "797add41-21d6-4596-89e7-5d9c10d966a7",
+      "fromLang": "targetCode",
+      "toLang": "sourceCode",
+      "enableCycle": false,
+      "timeThreshold": 300
+    },
+    "videoSubtitles": {
+      "enabled": true,
+      "autoStart": false,
+      "providerId": "797add41-21d6-4596-89e7-5d9c10d966a7",
+      "style": {
+        "displayMode": "bilingual",
+        "translationPosition": "below",
+        "main": {
+          "fontFamily": "system",
+          "fontScale": 100,
+          "color": "#FFFFFF",
+          "fontWeight": 400
+        },
+        "translation": {
+          "fontFamily": "system",
+          "fontScale": 100,
+          "color": "#FFFFFF",
+          "fontWeight": 400
+        },
+        "container": {
+          "backgroundOpacity": 75
+        }
+      },
+      "aiSegmentation": false,
+      "requestQueueConfig": {
+        "capacity": 60,
+        "rate": 8
+      },
+      "batchQueueConfig": {
+        "maxCharactersPerBatch": 1000,
+        "maxItemsPerBatch": 4
+      },
+      "customPromptsConfig": {
+        "promptId": null,
+        "patterns": []
+      },
+      "position": {
+        "percent": 10,
+        "anchor": "bottom"
+      }
+    },
+    "siteControl": {
+      "mode": "blacklist",
+      "blacklistPatterns": [],
+      "whitelistPatterns": []
+    }
+  },
+  "schemaVersion": 72
+}

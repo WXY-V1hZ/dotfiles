@@ -1,0 +1,147 @@
+#|
+配置指南: https://jtroo.github.io/config.html
+按键列表: https://github.com/jtroo/kanata/blob/main/parser/src/keys/mod.rs
+Ctrl+Esc+Space 强制停止 kanata
+|#
+
+;; 全局配置
+(defcfg
+  ;; 让未写进 defsrc 的键正常工作
+  process-unmapped-keys yes
+  ;; defchordsv2 需要
+  concurrent-tap-hold   yes
+)
+
+;; defsrc 必须配置
+(defsrc)
+
+;; 定义全局和弦
+(defchordsv2)
+
+;; 定义变量
+(defvar
+  pair-timeout 300 ;; 双击的超时时间
+)
+
+;; 覆盖全局映射
+(defoverridesv2
+  ;; Shift + Esc 生成波浪号
+  (lsft esc) (lsft grv) () ()
+  (rsft esc) (rsft grv) () ()
+)
+
+;; 定义操作别名
+(defalias
+
+  ;; 长按激活
+  caps (tap-hold-press 180 180
+    shft (layer-while-held layercaps)
+  )
+  esc  (tap-hold-press 180 180
+    esc (layer-while-held layeresc)
+  )
+
+  ;; 双击激活
+  meta (tap-dance $pair-timeout
+    (lmeta (layer-while-held layermeta))
+  )
+)
+
+;; 基础层
+(deflayermap (base)
+
+  caps    @caps
+  esc     @esc
+  lmeta   @meta
+)
+
+;; Caps 映射层
+(deflayermap (layercaps)
+
+  ;; 启用大小写锁定
+  spc     caps
+
+  ;; 方向键
+  w       up
+  a       left
+  s       down
+  d       right
+  k       up
+  h       left
+  j       down
+  l       right
+
+  ;; 反引号
+  esc     grv
+
+  ;; 右功能键
+  1       f1
+  2       f2
+  3       f3
+  4       f4
+  5       f5
+  6       f6
+  7       f7
+  8       f8
+  9       f9
+  0       f10
+  min     f11
+  eql     f12
+
+  ;; home del end
+  z       home
+  x       del
+  c       end
+
+  ;; 音量与媒体控制
+  q       vold        ;; 音量加
+  e       volu        ;; 音量减
+  r       mute        ;; 静音
+  b       pp          ;; 播放/暂停
+  f       prev        ;; 上一首
+  g       next        ;; 下一首
+
+  ;; 翻页
+  apos    pgup
+  /       pgdn
+
+  ;; 插入（bksl 是 back_slash 反斜杠 "\"）
+  bksl    ins
+
+  ;; 退格/删除键两用
+  bspc    del
+)
+
+;; Esc 映射层
+(deflayermap (layeresc)
+  ;; 模拟数字键盘
+  7       kp7
+  8       kp8
+  9       kp9
+  u       kp4
+  i       kp5
+  o       kp6
+  j       kp1
+  k       kp2
+  l       kp3
+  m       kp0
+  0       nlk ;; 锁定/解锁数字键盘
+)
+
+;; meta 映射层（用于niri）
+(deflayermap (layermeta)
+
+  ;; wasd 控制聚焦窗口
+  w       M-up
+  a       M-left
+  s       M-down
+  d       M-right
+
+  ;; qe 控制左右移动窗口
+  q       M-lbrc
+  e       M-rbrc
+
+  ;; zc 控制上一个/下一个工作区
+  c       M-u
+  z       M-i
+)
