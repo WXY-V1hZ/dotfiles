@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "appName": "SPlayer",
+    "version": "3.0.0",
+    "timestamp": 1780603930586,
+    "date": "2026-06-04T20:12:10.586Z"
+  },
+  "electron": {
+    "window": {
+      "width": 1095,
+      "height": 789,
+      "useBorderless": false,
+      "x": 0,
+      "y": 0,
+      "maximized": false,
+      "zoomFactor": 1
+    },
+    "lyric": {
+      "x": -2,
+      "y": 2,
+      "width": 954,
+      "height": 152,
+      "config": {
+        "isLock": false,
+        "playedColor": "#fe7971",
+        "unplayedColor": "#ccc",
+        "shadowColor": "rgba(0, 0, 0, 0.5)",
+        "fontFamily": "system-ui",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "showTran": true,
+        "showYrc": true,
+        "isDoubleLine": true,
+        "position": "both",
+        "limitBounds": false,
+        "textBackgroundMask": false,
+        "backgroundMaskColor": "rgba(0, 0, 0, 0.5)",
+        "alwaysShowPlayInfo": false,
+        "animation": true
+      }
+    },
+    "taskbar": {
+      "enabled": false,
+      "maxWidth": 30,
+      "showCover": true,
+      "position": "automatic",
+      "showWhenPaused": true,
+      "autoShrink": false,
+      "margin": 10,
+      "minWidth": 10
+    },
+    "macos": {
+      "statusBarLyric": {
+        "enabled": false
+      }
+    },
+    "proxy": "",
+    "amllDbServer": "https://amlldb.bikonoo.com/ncm-lyrics/%s.ttml",
+    "cachePath": "/home/v1hz/.config/SPlayer/DataCache",
+    "cacheLimit": 5,
+    "websocket": {
+      "enabled": false,
+      "port": 25885
+    },
+    "downloadThreadCount": 8,
+    "enableDownloadHttp2": true,
+    "updateChannel": "stable"
+  },
+  "renderer": {
+    "setting-store": "{\"schemaVersion\":10,\"themeMode\":\"auto\",\"themeColorType\":\"blue\",\"preferTraditionalChinese\":false,\"traditionalChineseVariant\":\"s2t\",\"themeCustomColor\":\"#fe7971\",\"themeFollowCover\":false,\"themeGlobalColor\":false,\"themeVariant\":\"secondary\",\"fontSettingStyle\":\"single\",\"globalFont\":\"default\",\"LyricFont\":\"follow\",\"japaneseLyricFont\":\"follow\",\"englishLyricFont\":\"follow\",\"koreanLyricFont\":\"follow\",\"hideVipTag\":false,\"showSearchHistory\":true,\"menuShowCover\":true,\"menuExpandedKeys\":[\"user-playlists\"],\"routeAnimation\":\"flow\",\"playerExpandAnimation\":\"up\",\"useOnlineService\":true,\"showCloseAppTip\":false,\"closeAppMethod\":\"hide\",\"showTaskbarProgress\":false,\"taskbarLyricShowCover\":true,\"taskbarLyricMaxWidth\":30,\"taskbarLyricPosition\":\"automatic\",\"taskbarLyricAutoShrink\":false,\"taskbarLyricMargin\":10,\"taskbarLyricMinWidth\":10,\"taskbarLyricShowWhenPaused\":true,\"taskbarLyricAnimationMode\":\"slide-blur\",\"taskbarLyricSingleLineMode\":false,\"taskbarLyricUseThemeColor\":false,\"taskbarLyricFontWeight\":400,\"checkUpdateOnStart\":true,\"preventSleep\":false,\"useKeepAlive\":true,\"songLevel\":\"lossless\",\"playDevice\":\"default\",\"audioEngine\":\"element\",\"autoPlay\":false,\"useNextPrefetch\":true,\"songVolumeFade\":true,\"songVolumeFadeTime\":300,\"enableReplayGain\":false,\"replayGainMode\":\"track\",\"useSongUnlock\":true,\"songUnlockServer\":[{\"key\":\"bodian\",\"enabled\":true},{\"key\":\"gequbao\",\"enabled\":true},{\"key\":\"netease\",\"enabled\":true},{\"key\":\"kuwo\",\"enabled\":false}],\"countDownShow\":true,\"barLyricShow\":true,\"timeFormat\":\"current-total\",\"playerType\":\"cover\",\"playerBackgroundType\":\"blur\",\"playerBackgroundFps\":30,\"playerBackgroundFlowSpeed\":4,\"playerBackgroundPause\":false,\"playerBackgroundLowFreqVolume\":false,\"playerBackgroundRenderScale\":0.5,\"autoHidePlayerMeta\":true,\"memoryLastSeek\":true,\"progressTooltipShow\":true,\"progressAdjustLyric\":false,\"showPlaylistCount\":true,\"showSpectrums\":false,\"smtcOpen\":true,\"playSongDemo\":false,\"scrobbleSong\":false,\"dynamicCover\":false,\"lyricFontSizeMode\":\"adaptive\",\"lyricFontSize\":46,\"lyricTranFontSize\":22,\"lyricRomaFontSize\":18,\"lyricFontWeight\":700,\"useAMLyrics\":false,\"useAMSpring\":true,\"hidePassedLines\":false,\"wordFadeWidth\":0.5,\"lyricOffsetStep\":500,\"enableOnlineTTMLLyric\":false,\"enableQQMusicLyric\":false,\"lyricPriority\":\"auto\",\"localLyricQQMusicMatch\":false,\"amllDbServer\":\"https://amlldb.bikonoo.com/ncm-lyrics/%s.ttml\",\"showYrc\":true,\"showTran\":true,\"showRoma\":true,\"swapTranRoma\":false,\"showWordsRoma\":true,\"lyricTransition\":\"slide\",\"lyricsPosition\":\"flex-start\",\"lyricsBlur\":false,\"lyricsScrollOffset\":0.25,\"lyricHorizontalOffset\":10,\"lyricAlignRight\":false,\"hideBracketedContent\":false,\"replaceLyricBrackets\":false,\"bracketReplacementPreset\":\"dash\",\"customBracketReplacement\":\"-\",\"enableExcludeLyrics\":true,\"enableExcludeLyricsTTML\":false,\"enableExcludeLyricsLocal\":false,\"excludeLyricsUserKeywords\":[],\"excludeLyricsUserRegexes\":[],\"enableExcludeComments\":false,\"excludeCommentKeywords\":[],\"excludeCommentRegexes\":[],\"localFilesPath\":[],\"localLyricPath\":[],\"showDefaultLocalPath\":true,\"localFolderDisplayMode\":\"tab\",\"localSeparators\":[\"/\",\"&\"],\"showLocalCover\":true,\"hiddenCovers\":{\"home\":false,\"playlist\":false,\"toplist\":false,\"artist\":false,\"new\":false,\"player\":false,\"list\":false,\"personalFM\":false,\"artistDetail\":false,\"radio\":false,\"album\":false,\"like\":false,\"video\":false,\"videoDetail\":false},\"hideAllCovers\":false,\"hideMiniPlayerCover\":false,\"downloadPath\":\"\",\"downloadThreadCount\":8,\"cacheEnabled\":true,\"songCacheEnabled\":true,\"fileNameFormat\":\"title-artist\",\"folderStrategy\":\"none\",\"downloadMeta\":true,\"downloadCover\":true,\"downloadLyric\":true,\"downloadLyricTranslation\":true,\"downloadLyricRomaji\":false,\"usePlaybackForDownload\":false,\"useUnlockForDownload\":false,\"downloadMakeYrc\":false,\"downloadSaveAsAss\":false,\"downloadLyricToTraditional\":false,\"downloadLyricEncoding\":\"utf-8\",\"enableDownloadHttp2\":true,\"saveMetaFile\":false,\"downloadSongLevel\":\"h\",\"proxyProtocol\":\"off\",\"proxyServe\":\"127.0.0.1\",\"proxyPort\":80,\"useRealIP\":false,\"realIP\":\"\",\"showPlayMeta\":true,\"showSongQuality\":true,\"showPlayerQuality\":true,\"showSongPrivilegeTag\":true,\"showSongExplicitTag\":true,\"showSongOriginalTag\":true,\"showSongAlbum\":true,\"showSongDuration\":true,\"showSongOperations\":true,\"showSongArtist\":true,\"sidebarHide\":{\"hideDiscover\":true,\"hidePersonalFM\":true,\"hideRadioHot\":true,\"hideLike\":false,\"hideCloud\":true,\"hideDownload\":false,\"hideLocal\":false,\"hideHistory\":false,\"hideUserPlaylists\":false,\"hideLikedPlaylists\":false,\"hideHeartbeatMode\":false},\"playlistPageElements\":{\"tags\":true,\"creator\":true,\"time\":true,\"description\":true},\"fullscreenPlayerElements\":{\"like\":true,\"addToPlaylist\":true,\"download\":true,\"comments\":true,\"desktopLyric\":true,\"moreSettings\":true,\"copyLyric\":true,\"lyricOffset\":true,\"lyricSettings\":true},\"contextMenuOptions\":{\"play\":true,\"playNext\":true,\"addToPlaylist\":true,\"mv\":true,\"dislike\":true,\"more\":true,\"cloudImport\":true,\"deleteFromPlaylist\":true,\"deleteFromCloud\":true,\"deleteFromLocal\":true,\"openFolder\":true,\"cloudMatch\":true,\"wiki\":true,\"search\":true,\"download\":true,\"copyName\":true,\"musicTagEditor\":true},\"enableSearchKeyword\":true,\"searchInputBehavior\":\"normal\",\"showHomeGreeting\":true,\"homePageSections\":[{\"key\":\"playlist\",\"name\":\"专属歌单\",\"visible\":false,\"order\":0},{\"key\":\"radar\",\"name\":\"雷达歌单\",\"visible\":false,\"order\":1},{\"key\":\"artist\",\"name\":\"歌手推荐\",\"visible\":false,\"order\":2},{\"key\":\"video\",\"name\":\"推荐 MV\",\"visible\":false,\"order\":3},{\"key\":\"radio\",\"name\":\"推荐播客\",\"visible\":false,\"order\":4},{\"key\":\"album\",\"name\":\"新碟上架\",\"visible\":false,\"order\":5}],\"userAgreementVersion\":\"v2.0\",\"registryProtocol\":{\"orpheus\":true},\"lastfm\":{\"enabled\":true,\"apiKey\":\"9e3d9bb9fbdb5f93e7c10eb20dff5fc3\",\"apiSecret\":\"8be2ec417f0aafeaa76a4fdbda3fa6cc\",\"sessionKey\":\"dtk87nRDHLS-PkHKwKf6QKUd1PbH1i2o\",\"username\":\"V1hZ\",\"scrobbleEnabled\":true,\"nowPlayingEnabled\":true},\"playerFollowCoverColor\":true,\"progressLyricShow\":true,\"discordRpc\":{\"enabled\":true,\"showWhenPaused\":true,\"displayMode\":\"Details\"},\"playbackEngine\":\"web-audio\",\"customCss\":\"\",\"customJs\":\"\",\"playerStyleRatio\":50,\"playerFullscreenGradient\":15,\"streamingEnabled\":false,\"disableAiAudio\":false,\"disableDjMode\":false,\"enableGlobalErrorDialog\":true,\"macos\":{\"statusBarLyric\":{\"enabled\":false}},\"enableTTMLLyric\":false,\"excludeUserKeywords\":[],\"excludeUserRegexes\":[]}",
+    "shortcut-store": "{\"globalOpen\":false,\"shortcutList\":{\"playOrPause\":{\"name\":\"播放 / 暂停\",\"shortcut\":\"CmdOrCtrl+Space\",\"globalShortcut\":\"CmdOrCtrl+Shift+Space\",\"isRegistered\":false},\"playPrev\":{\"name\":\"上一曲\",\"shortcut\":\"CmdOrCtrl+ArrowLeft\",\"globalShortcut\":\"CmdOrCtrl+Shift+Left\",\"isRegistered\":false},\"playNext\":{\"name\":\"下一曲\",\"shortcut\":\"CmdOrCtrl+ArrowRight\",\"globalShortcut\":\"CmdOrCtrl+Shift+Right\",\"isRegistered\":false},\"seekForward\":{\"name\":\"快进 5 秒\",\"shortcut\":\"ArrowRight\",\"globalShortcut\":\"CmdOrCtrl+Shift+Right\",\"isRegistered\":false},\"seekBackward\":{\"name\":\"快退 5 秒\",\"shortcut\":\"ArrowLeft\",\"globalShortcut\":\"CmdOrCtrl+Shift+Left\",\"isRegistered\":false},\"volumeUp\":{\"name\":\"音量加\",\"shortcut\":\"CmdOrCtrl+ArrowUp\",\"globalShortcut\":\"CmdOrCtrl+Shift+Up\",\"isRegistered\":false},\"volumeDown\":{\"name\":\"音量减\",\"shortcut\":\"CmdOrCtrl+ArrowDown\",\"globalShortcut\":\"CmdOrCtrl+Shift+Down\",\"isRegistered\":false},\"toggle-desktop-lyric\":{\"name\":\"桌面歌词\",\"shortcut\":\"CmdOrCtrl+KeyD\",\"globalShortcut\":\"CmdOrCtrl+Shift+D\",\"isRegistered\":false},\"openPlayer\":{\"name\":\"打开播放界面\",\"shortcut\":\"KeyP\",\"globalShortcut\":\"\",\"isRegistered\":false},\"openPlayList\":{\"name\":\"打开播放列表\",\"shortcut\":\"KeyL\",\"globalShortcut\":\"\",\"isRegistered\":false},\"closePlayer\":{\"name\":\"关闭播放界面\",\"shortcut\":\"Escape\",\"globalShortcut\":\"\",\"isRegistered\":false}}}"
+  }
+}
