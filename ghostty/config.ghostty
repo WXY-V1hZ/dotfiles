@@ -1,0 +1,19 @@
+# 字体
+font-family = Maple Mono NF CN
+font-size = 12
+
+# 间距
+window-padding-x = 5
+window-padding-y = 0
+
+# 确认关闭
+confirm-close-surface = false
+
+# 快捷键。
+keybind = ctrl+backspace=text:\x17
+
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
+window-theme = system
+
+window-width = 120
+window-height = 40

@@ -18,11 +18,6 @@ Ctrl+Esc+Space 强制停止 kanata
 ;; 定义全局和弦
 (defchordsv2)
 
-;; 定义变量
-(defvar
-  pair-timeout 300 ;; 双击的超时时间
-)
-
 ;; 覆盖全局映射
 (defoverridesv2
   ;; Shift + Esc 生成波浪号
@@ -40,11 +35,6 @@ Ctrl+Esc+Space 强制停止 kanata
   esc  (tap-hold-press 180 180
     esc (layer-while-held layeresc)
   )
-
-  ;; 双击激活
-  meta (tap-dance $pair-timeout
-    (lmeta (layer-while-held layermeta))
-  )
 )
 
 ;; 基础层
@@ -52,7 +42,6 @@ Ctrl+Esc+Space 强制停止 kanata
 
   caps    @caps
   esc     @esc
-  lmeta   @meta
 )
 
 ;; Caps 映射层
@@ -125,23 +114,4 @@ Ctrl+Esc+Space 强制停止 kanata
   k       kp2
   l       kp3
   m       kp0
-  0       nlk ;; 锁定/解锁数字键盘
-)
-
-;; meta 映射层（用于niri）
-(deflayermap (layermeta)
-
-  ;; wasd 控制聚焦窗口
-  w       M-up
-  a       M-left
-  s       M-down
-  d       M-right
-
-  ;; qe 控制左右移动窗口
-  q       M-lbrc
-  e       M-rbrc
-
-  ;; zc 控制上一个/下一个工作区
-  c       M-u
-  z       M-i
 )
