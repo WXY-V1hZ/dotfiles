@@ -1,0 +1,222 @@
+- name: Configure Fedora workstation
+  hosts: all
+  gather_facts: false
+  become: true
+  vars:
+    fedora_copr_projects:
+      - scottames/ghostty
+      - jdxcode/mise
+      - atim/starship
+
+    fedora_packages_present:
+      # Command-line tools
+      - fish
+      - eza
+      - gh
+      - git
+      - git-subtree
+      - mise
+      - starship
+
+      # Nix bootstrap
+      - nix
+      - nix-daemon
+
+      # Development
+      - code
+      - ghostty
+
+      # Containers
+      - podman
+      - podman-compose
+
+      # Browser
+      - google-chrome-stable
+
+      # Input method
+      - fcitx5
+      - fcitx5-qt
+      - fcitx5-gtk
+      - fcitx5-autostart
+      - fcitx5-configtool
+      - fcitx5-chinese-addons
+
+    fedora_packages_absent:
+      - firefox
+      - akonadi-import-wizard
+      - akregator
+      - grantlee-editor
+      - ibus
+      - kaddressbook
+      - kamoso
+      - kcalc
+      - kcharselect
+      - kde-connect
+      - kdebugsettings
+      - khelpcenter
+      - kmahjongg
+      - kmail
+      - kmines
+      - kmouth
+      - kolourpaint
+      - kontact
+      - korganizer
+      - kpat
+      - krdc
+      - krfb
+      - libreoffice-calc
+      - libreoffice-draw
+      - libreoffice-impress
+      - libreoffice-math
+      - libreoffice-writer
+      - neochat
+      - okular
+      - pim-data-exporter
+      - pim-sieve-editor
+      - plasma-welcome
+      - skanpage
+      - spectacle
+
+  tasks:
+    - name: Import the Microsoft RPM signing key
+      ansible.builtin.rpm_key:
+        key: https://packages.microsoft.com/keys/microsoft.asc
+        fingerprint: BC528686B50D79E339D3721CEB3E94ADBE1229CF
+        state: present
+
+    - name: Configure the Microsoft VS Code repository
+      ansible.builtin.yum_repository:
+        name: code
+        file: vscode
+        description: Visual Studio Code
+        baseurl: https://packages.microsoft.com/yumrepos/vscode
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+        gpgcheck: true
+        enabled: true
+        state: present
+
+    - name: Install third-party repository tools and definitions
+      ansible.builtin.dnf5:
+        name:
+          - dnf5-plugins
+          - fedora-workstation-repositories
+        state: present
+
+    - name: Check whether the Google Chrome repository is enabled
+      ansible.builtin.command: dnf5 --quiet repo list --enabled --json google-chrome
+      register: google_chrome_repository
+      changed_when: false
+      check_mode: false
+
+    - name: Enable the Google Chrome repository
+      ansible.builtin.command: dnf5 config-manager setopt google-chrome.enabled=1
+      when: (google_chrome_repository.stdout | from_json | length) == 0
+
+    - name: Import the Google Chrome RPM signing key
+      ansible.builtin.rpm_key:
+        key: https://dl.google.com/linux/linux_signing_key.pub
+        fingerprint: EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796
+        state: present
+
+    - name: Check which COPR repositories are enabled
+      ansible.builtin.command:
+        argv:
+          - dnf5
+          - --quiet
+          - repo
+          - list
+          - --enabled
+          - --json
+          - "copr:copr.fedorainfracloud.org:{{ copr_project | replace('/', ':') }}"
+      loop: "{{ fedora_copr_projects }}"
+      loop_control:
+        loop_var: copr_project
+      register: copr_repositories
+      changed_when: false
+      check_mode: false
+
+    - name: Enable missing COPR repositories
+      ansible.builtin.command:
+        argv:
+          - dnf5
+          - --assumeyes
+          - copr
+          - enable
+          - "{{ copr_status.copr_project }}"
+      loop: "{{ copr_repositories.results }}"
+      loop_control:
+        loop_var: copr_status
+        label: "{{ copr_status.copr_project }}"
+      when: (copr_status.stdout | from_json | length) == 0
+
+    - name: Import the COPR RPM signing keys
+      ansible.builtin.rpm_key:
+        key: "https://download.copr.fedorainfracloud.org/results/{{ item }}/pubkey.gpg"
+        state: present
+      loop: "{{ fedora_copr_projects }}"
+
+    - name: Install Fedora packages
+      ansible.builtin.dnf5:
+        name: "{{ fedora_packages_present }}"
+        state: present
+
+    - name: Enable and start the Nix daemon
+      ansible.builtin.systemd_service:
+        name: nix-daemon.service
+        enabled: true
+        state: started
+
+    - name: Remove unwanted Fedora packages
+      ansible.builtin.dnf5:
+        name: "{{ fedora_packages_absent }}"
+        state: absent
+        autoremove: true
+        allowerasing: true
+
+    - name: Identify the Ansible connection user
+      ansible.builtin.command: id -un
+      become: false
+      check_mode: false
+      changed_when: false
+      register: connection_user
+
+    - name: Set fish as the login shell
+      ansible.builtin.user:
+        name: "{{ connection_user.stdout }}"
+        shell: /usr/bin/fish
+      when: connection_user.stdout != 'root'
+
+    - name: Configure Kanata input device access
+      when: connection_user.stdout != 'root'
+      block:
+        - name: Create the uinput system group
+          ansible.builtin.group:
+            name: uinput
+            system: true
+            state: present
+
+        - name: Grant the connection user access to Kanata devices
+          ansible.builtin.user:
+            name: "{{ connection_user.stdout }}"
+            groups:
+              - input
+              - uinput
+            append: true
+
+        - name: Load the uinput module at boot
+          ansible.builtin.copy:
+            dest: /etc/modules-load.d/kanata.conf
+            content: |
+              uinput
+            owner: root
+            group: root
+            mode: '0644'
+
+        - name: Configure permissions on the uinput device
+          ansible.builtin.copy:
+            dest: /etc/udev/rules.d/99-kanata.rules
+            content: |
+              KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+            owner: root
+            group: root
+            mode: '0644'
