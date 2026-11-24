@@ -8,5 +8,6 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "workbench.tree.indent": 16,
-    "git.enableSmartCommit": true
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false
 }
