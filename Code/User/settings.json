@@ -7,5 +7,6 @@
     "terminal.integrated.initialHint": false,
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "workbench.tree.indent": 16
+    "workbench.tree.indent": 16,
+    "git.enableSmartCommit": true
 }
