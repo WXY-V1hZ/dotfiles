@@ -4,5 +4,8 @@
     "window.autoDetectColorScheme": true,
     "workbench.activityBar.location": "top",
     "editor.fontFamily": "'Maple Mono NF CN', monospace",
-    "terminal.integrated.initialHint": false
+    "terminal.integrated.initialHint": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "workbench.tree.indent": 16
 }
