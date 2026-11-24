@@ -1,3 +1,4 @@
+# ansible-playbook -i "localhost," -c local -K ansible.yml
 - name: Configure Fedora workstation
   hosts: all
   gather_facts: false
@@ -17,6 +18,7 @@
       - git-subtree
       - mise
       - starship
+      - ansible-core
 
       # Nix bootstrap
       - nix
@@ -32,6 +34,9 @@
 
       # Browser
       - google-chrome-stable
+
+      # Flatpak
+      - flatpak
 
       # Input method
       - fcitx5
@@ -158,6 +163,22 @@
     - name: Install Fedora packages
       ansible.builtin.dnf5:
         name: "{{ fedora_packages_present }}"
+        state: present
+
+    - name: Add the system Flathub remote
+      community.general.flatpak_remote:
+        name: flathub
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        method: system
+        state: present
+
+    - name: Install WeChat and QQ from Flathub
+      community.general.flatpak:
+        name:
+          - com.tencent.WeChat
+          - com.qq.QQ
+        remote: flathub
+        method: system
         state: present
 
     - name: Enable and start the Nix daemon
