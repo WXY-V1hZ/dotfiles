@@ -35,6 +35,9 @@
       # Browser
       - google-chrome-stable
 
+      # Media codecs
+      - libavcodec-freeworld
+
       # Flatpak
       - flatpak
 
@@ -68,7 +71,6 @@
       - korganizer
       - kpat
       - krdc
-      - krfb
       - libreoffice-calc
       - libreoffice-draw
       - libreoffice-impress
@@ -104,7 +106,24 @@
       ansible.builtin.dnf5:
         name:
           - dnf5-plugins
+          - distribution-gpg-keys
           - fedora-workstation-repositories
+        state: present
+
+    - name: Detect the Fedora release
+      ansible.builtin.command: rpm -E %fedora
+      register: fedora_release
+      changed_when: false
+      check_mode: false
+
+    - name: Import the RPM Fusion Free signing key
+      ansible.builtin.rpm_key:
+        key: "/usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-fedora-{{ fedora_release.stdout }}"
+        state: present
+
+    - name: Install the RPM Fusion Free repository
+      ansible.builtin.dnf5:
+        name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ fedora_release.stdout }}.noarch.rpm"
         state: present
 
     - name: Check whether the Google Chrome repository is enabled
@@ -177,6 +196,7 @@
         name:
           - com.tencent.WeChat
           - com.qq.QQ
+          - it.mijorus.gearlever
         remote: flathub
         method: system
         state: present
